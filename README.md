@@ -2,11 +2,11 @@
 
 This README details all files in the project repo.
 
-### What is this repository for? ###
+## What is this repository for? ##
 
 * Final Project for the [M3C course](http://imperialhpsc.bitbucket.org) at Imperial College London 2015-2016
 
-### Contact Details ###
+## Contact Details ##
 
 * Email: yrb13@ic.ac.uk
 
@@ -20,7 +20,7 @@ Files that have been provided for the project but have not been editted in any w
 * part3/: sub-directory containing the files relevant to "Part3: Parallel advection equation solver".
 * part4/: sub-directory containing the files relevant to "Part4: Solving the two-dimensional advection equation".
 
-### part1/ ### 
+### part1/ ###
 
 * fdmodule.f90: unchaged
 * p1_3.py: unchanged
@@ -39,12 +39,12 @@ Files that have been provided for the project but have not been editted in any w
 * p3.py: unchanged
 * p3_v2.py: unchanged
 
-#### part4/ ####
+### part4/ ###
 
 * advmodule2d.f90: unchanged
 * fdmoduleB.f90: unchanged
 * ode2d.f90: unchanged
 * p4.py: unchanged
 
-### Helpful Links for the admin's benefit ###
+## Helpful Links for the admin's benefit ##
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
