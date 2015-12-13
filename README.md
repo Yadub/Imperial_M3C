@@ -8,13 +8,14 @@ This README details all files in the project repo.
 
 ## Contact Details ##
 
-* Email: yrb13@ic.ac.uk
+* Email: [yrb13@ic.ac.uk](mailto:yrb13@ic.ac.uk)
 
 ## Files and Brief Descriptions ##
 
 Files that have been provided for the project but have not been editted in any way whatsoever have also been listed here. They state unchanged next to them.
 
 * contributors.txt: contains my name, CID, and a statement about this is project being my own unaided work.
+
 * part1/: sub-directory containing the files relevant to "Part1: Improving your serial gradient code".
 * part2/: sub-directory containing the files relevant to "Part2: Applying your parallel gradient code".
 * part3/: sub-directory containing the files relevant to "Part3: Parallel advection equation solver".
@@ -24,6 +25,8 @@ Files that have been provided for the project but have not been editted in any w
 
 * fdmodule.f90: unchaged
 * p1_3.py: unchanged
+* fdmodule_dev.f90: copy of fdmodule.f90 that I am making working changes to
+* fdmodule2d_dev.f90: copy of fdmodule2d from hw4soln that I am making working changes to
 
 ### part2/ ###
 
