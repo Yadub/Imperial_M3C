@@ -23,10 +23,17 @@ Files that have been provided for the project but have not been editted in any w
 
 ### part1/ ###
 
+* data.in: used as input for testing the fortran code
 * fdmodule.f90: unchaged
-* p1_3.py: unchanged
 * fdmodule_dev.f90: copy of fdmodule.f90 that I am making working changes to
 * fdmodule2d_dev.f90: copy of fdmodule2d from hw4soln that I am making working changes to
+* p1_3.py: unchanged
+* p1_3.so: shared ojbect file created for python using f2py --f90flags='-fopenmp' -lgomp -c fdmodule_dev.f90 fdmodule2d_dev.f90 -m p1_3 -llapack
+* p1_dev.py: copy of p1_3.py that I have made working changes to
+* p1_fig1.png: plot produced by p1_dev.py for speedup (serial vs OMP parallel code)
+* p1_fig2.png: plot produced by p1_dev.py for speedup2d (serial vs 2D-serial code)
+* testfortran: bash file with commands to compile and run the fortran code for the 2D-serial code with input from data.in
+* testing.exe: executable created using the fortran modules and test function in fdmodule2d_dev.f90
 
 ### part2/ ###
 
