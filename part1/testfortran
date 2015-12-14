@@ -1,0 +1,2 @@
+gfortran -o testing.exe fdmodule_dev.f90 fdmodule2d_dev.f90 -llapack
+./testing.exe

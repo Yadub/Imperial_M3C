@@ -81,7 +81,6 @@ subroutine cfd4(f,df)
 
 end subroutine cfd4
 !------------------
-!-----------------
 
 subroutine cfd4_2d(f,df)
     !4th order centered finite difference scheme with
@@ -89,13 +88,13 @@ subroutine cfd4_2d(f,df)
     !Assumes N, dx have been set in calling program
     !f is N x NRHS
     implicit none
-    real(kind=8) :: dxfac,c1,c2,c3,c4, NRHS
+    real(kind=8) :: dxfac,c1,c2,c3,c4
     real(kind=8), dimension(:,:), intent(in) :: f
     real(kind=8), dimension(size(f,1),size(f,2)), intent(out) :: df
     !variables for DGTSV
     real(kind=8), dimension(size(f,1)) :: D
     real(kind=8), dimension(size(f,1)-1) :: DL,DU
-    integer :: INFO
+    integer :: INFO,NRHS
 
     !needed constants
     dxfac = 1.d0/dx
@@ -106,8 +105,8 @@ subroutine cfd4_2d(f,df)
 
     !RHS
     df(2:N-1,:) = c1*(f(3:N,:)-f(1:N-2,:))
-    df(1) = (-c2*f(1,:) + c3*f(2,:) + c4*f(3,:))
-    df(N) = (c2*f(N,:) - c3*f(N-1,:) - c4*f(N-2,:))
+    df(1,:) = (-c2*f(1,:) + c3*f(2,:) + c4*f(3,:))
+    df(N,:) = (c2*f(N,:) - c3*f(N-1,:) - c4*f(N-2,:))
 
     df = dxfac*df
 
@@ -135,7 +134,6 @@ subroutine cfd4_2d(f,df)
 
 end subroutine cfd4_2d
 !------------------
-
 
 subroutine test_fd(alpha,error)
     !test finite difference schemes with Gaussian function

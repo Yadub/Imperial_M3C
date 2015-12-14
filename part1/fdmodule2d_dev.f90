@@ -179,24 +179,28 @@ subroutine grad2d(f,df1,df2,df_amp,df_max)
     implicit none
     real(kind=8), dimension(:,:), intent(in) :: f
     real(kind=8), dimension(size(f,1),size(f,2)), intent(out) :: df1,df2,df_amp
+    real(kind=8), dimension(size(f,2),size(f,1)) :: df1_temp
     real(kind=8), intent(out) :: df_max
     integer :: i1
 
     !compute df/dx1
     n = n1
     dx = dx1
-    call cfd4_2d(f,df1)
+    !cfd4_2d computes values along one direction and so df/dx1 we need to tranpose the matrix
+    call cfd4_2d(transpose(f),df1_temp)
+    !we revert the tranposed solution by tranposing it again
+    df1 = transpose(df1_temp)
 
     !compute df/dx2
     n = n2
     dx = dx2
-    call cfd4_2d(transpose(f),transpose(df2))
+    call cfd4_2d(f,df2)
 
     df_amp = abs(df1)+abs(df2)
 
     df_max = maxval(df_amp)
 
-end subroutine grad
+end subroutine grad2d
 !-------------------
 subroutine test_grad2d(error,time)
     !tests accuracy and speed of grad, assumes n1,n2,dx1,dx2 have been set in calling program
@@ -243,44 +247,45 @@ subroutine test_grad2d(error,time)
 
     error(1) = sum(abs(df1-cos(x11)*cos(x22)))/(n1*n2)
     error(2) = sum(abs(df2+sin(x11)*sin(x22)))/(n1*n2)
-end subroutine test_grad
+
+end subroutine test_grad2d
 !---------------------------
 end module fdmodule2d
 
 
 !test program, not required for assignment
-!program test
-!    !$    use omp_lib
-!    use fdmodule2d
-!    implicit none
-!    integer :: i1,j1
-!    real(kind=8), allocatable, dimension(:) :: x1,x2 !coordinates stored in arrays
-!    real(kind=8), allocatable, dimension(:,:) :: x11,x22 !coordinates stored in matrices
-!    real(kind=8), allocatable, dimension(:,:) :: ftest,df1,df2,df_amp,df_amp_exact !test function and results from grad
-!    real(kind=8) :: df_max,time,error(2)
-!    integer(kind=8) :: t1,t2,clock_rate
-!
-!    open(unit=10,file='data.in')
-!    read(10,*) n1
-!    read(10,*) n2
-!    read(10,*) numThreads
-!    close(10)
-!
-!    !$ call omp_set_num_threads(numthreads)
-!
-!
-!    dx1 = 1.d0/dble(n1-1)
-!    dx2 = 1.d0/dble(n2-1)
-!
-!    call test_grad_omp(error,time)
-!
-!    print *, 'omp test, n1,n2,numThreads=',n1,n2,numThreads
-!    print *, 'error=',error
-!    print *, 'time=',time
-!
-!
-!
-!end program test
+program test
+    !$    use omp_lib
+    use fdmodule2d
+    implicit none
+    integer :: i1,j1
+    real(kind=8), allocatable, dimension(:) :: x1,x2 !coordinates stored in arrays
+    real(kind=8), allocatable, dimension(:,:) :: x11,x22 !coordinates stored in matrices
+    real(kind=8), allocatable, dimension(:,:) :: ftest,df1,df2,df_amp,df_amp_exact !test function and results from grad
+    real(kind=8) :: df_max,time,error(2)
+    integer(kind=8) :: t1,t2,clock_rate
+
+    open(unit=10,file='data.in')
+    read(10,*) n1
+    read(10,*) n2
+    read(10,*) numThreads
+    close(10)
+
+    !$ call omp_set_num_threads(numthreads)
+
+
+    dx1 = 1.d0/dble(n1-1)
+    dx2 = 1.d0/dble(n2-1)
+
+    call test_grad2d(error,time)
+
+    print *, 'omp test, n1,n2,numThreads=',n1,n2,numThreads
+    print *, 'error=',error
+    print *, 'time=',time
+
+
+
+end program test
 
 
 
