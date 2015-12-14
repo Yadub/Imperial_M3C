@@ -38,7 +38,11 @@ Files that have been provided for the project but have not been editted in any w
 ### part2/ ###
 
 * fdmodule.f90: unchanged
-* p2.py: unchanged
+* fdmodule2d.f90: from solution form hw4. We use the grad_omp function along with fdmodule.f90 for image processing
+* p2.png: image created by threshold function in p2_dev.py of the thresholded matrix
+* p2.so: shared object file created for python using f2py  --f90flags='-fopenmp' -lgomp -c fdmodule.f90 fdmodule2d.f90 -m p2 -llapack
+* p2_dev.py: copy of p2_template.py that I am making working changes to
+* p2_template.py: unchanged version of p2.py that was provided for the course
 
 ### part3/ ###
 
