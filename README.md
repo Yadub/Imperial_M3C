@@ -47,10 +47,14 @@ Files that have been provided for the project but needed to be editted have orig
 
 ### part3/ ###
 
+* adv_mpi.exe: execulable produced from ode_mpi_dev.f90
 * advmodule.f90: unchanged
+* data_mpi.in: file for reading in values when running adv_mpi.exe
 * fdmoduleB.f90: unchanged
+* fmpi.dat: python friendly data file produced upon running adv_mpi.exe
 * ode_dev.f90: copy of ode_template.f90 that I am making working changes to
-* ode_mpi.f90: unchanged
+* ode_mpi_dev.f90: copy of ode_mpi_template.f90 that I am making working changes to
+* ode_mpi_template.f90: unchanged
 * ode_template.f90: unchanged
 * p3.py: unchanged
 * p3_dev: copy of p3_v2.py that I am making working changes to
