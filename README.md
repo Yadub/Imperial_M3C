@@ -63,9 +63,12 @@ Files that have been provided for the project but needed to be editted have orig
 ### part4/ ###
 
 * advmodule2d.f90: unchanged
+* fdmodule2dp: copied from solutions for hw4 part 1. Editted to call fd2 instead of cfd4 and removed variables df_amp, df_max
 * fdmoduleB.f90: unchanged
-* ode2d.f90: unchanged
-* p4.py: unchanged
+* ode2d_dev.f90: copy of ode_template.f90 that I am making working changes to
+* ode2d_template.f90: unchanged
+* p4_dev.py: copy of p4_template that I am making working changes to
+* p4_template.py: unchanged
 
 ## Helpful Links for the admin's benefit ##
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
