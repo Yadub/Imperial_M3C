@@ -13,6 +13,7 @@ This README details all files in the project repo.
 ## Files and Brief Descriptions ##
 
 Files that have been provided for the project but have not been editted in any way whatsoever have also been listed here. They state unchanged next to them.
+Files that have been provided for the project but needed to be editted have originals copied with a "_template" suffix. They also state unchanged next to them
 
 * contributors.txt: contains my name, CID, and a statement about this is project being my own unaided work.
 
@@ -42,15 +43,17 @@ Files that have been provided for the project but have not been editted in any w
 * p2.png: image created by threshold function in p2_dev.py of the thresholded matrix
 * p2.so: shared object file created for python using f2py  --f90flags='-fopenmp' -lgomp -c fdmodule.f90 fdmodule2d.f90 -m p2 -llapack
 * p2_dev.py: copy of p2_template.py that I am making working changes to
-* p2_template.py: unchanged version of p2.py that was provided for the course
+* p2_template.py: unchanged
 
 ### part3/ ###
 
 * advmodule.f90: unchanged
 * fdmoduleB.f90: unchanged
-* ode.f90: unchanged
+* ode_dev.f90: copy of ode_template.f90 that I am making working changes to
 * ode_mpi.f90: unchanged
+* ode_template.f90: unchanged
 * p3.py: unchanged
+* p3_dev: copy of p3_v2.py that I am making working changes to
 * p3_v2.py: unchanged
 
 ### part4/ ###
