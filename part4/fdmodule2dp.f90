@@ -29,7 +29,6 @@ subroutine grad(f,df1,df2)
         call fd2(f(i1,:),df1(i1,:))
     end do
 
-
     !compute df/dx2
     n = n2
     dx = dx2

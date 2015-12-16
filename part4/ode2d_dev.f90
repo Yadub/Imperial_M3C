@@ -8,6 +8,7 @@ module ode2d
     integer :: numthreads,par
     save
 contains
+!-----------------
 subroutine rk4(t0,y0,dt,nt,y,time)
     !4th order RK method
     implicit none
@@ -46,7 +47,7 @@ subroutine rk4(t0,y0,dt,nt,y,time)
         call system_clock(t2,clock_rate)
         time = dble(t2-t1)/dble(clock_rate)
 end subroutine rk4
-
+!-----------------
 subroutine euler(t0,y0,dt,nt,y)
     !explicit Euler method
     implicit none
@@ -68,10 +69,10 @@ subroutine euler(t0,y0,dt,nt,y)
 
 
 end subroutine euler
-
-
+!-----------------
 function RHS(t,f)
     use fdmodule2d
+    use fdmodule
     use advmodule
     implicit none
     integer :: i1
@@ -79,8 +80,28 @@ function RHS(t,f)
     real(kind=8), dimension(:,:), intent(in) :: f
     real(kind=8), dimension(size(f,1),size(f,2)) :: RHS,df1,df2
 
-    call grad(f,df1,df2)
+    if (par==1) then
+        !compute df/dx1
+        n = n1
+        dx = dx1
+        !$OMP parallel do
+        do i1=1,n2
+            call fd2(f(i1,:),df1(i1,:))
+        end do
+        !OMP end parallel do
 
+        n = n2
+        dx = dx2
+        !compute df/dx2, df_amp,df_max
+        !$OMP parallel do
+        do i1=1,n1
+            call fd2(f(:,i1),df2(:,i1))
+        end do
+        !$OMP end parallel do
+    else
+        call grad(f,df1,df2)
+    end if
+    
     RHS = S_adv - c1_adv*df1 - c2_adv*df2
 
 end function RHS
