@@ -16,8 +16,6 @@ def advection1f(nt,tf,n,dx,c=1.0,S=0.0,display=False,numthreads=4):
     -    nt time steps are taken from 0 to tf
     -    The solutions are plotted if display is true
     """
-    #adv.ode.euler(t0 float, y0 rank-1 array, dt, float, nt int)
-    
     #construct grid and initial condition, set time span for odeint
     x = np.arange(0.0,n*dx,dx)
     f0 = np.sin(2.0*np.pi*x/(n*dx))
