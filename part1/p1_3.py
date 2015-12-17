@@ -52,7 +52,7 @@ def test_gradN(numthreads):
     assess speedup
     The speeds for the two approaches are different because in grad we loop over
     rows/columns - depending on whether we compute df/dx1 or df/dx2 - calling 
-    DGSTV many times but in grad2d we call DGSTV once and use its optimized code 
+    DGSTV many times but in grad2d we call DGSTV twice and use its optimized code 
     to deal with the looping to solve the nrhs systems of equations in one go.
     """
         
