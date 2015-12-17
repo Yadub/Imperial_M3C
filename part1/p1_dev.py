@@ -6,6 +6,9 @@ To build the .so module:
 rm *.mod
 gfortran -c fdmodule.f90 fdmodule2d.f90
 f2py  --f90flags='-fopenmp' -lgomp -c fdmodule.f90 fdmodule2d.f90 -m p1_3 -llapack
+
+Code for functions from solutions for hw41.py which retains its functionality
+and adds functionality for computing speedup between grad and grad2d 
 """
 from p1_3 import fdmodule as f1
 from p1_3 import fdmodule2d as f2d
@@ -40,7 +43,6 @@ def test_grad1(n1,n2,numthreads):
         tarray += [t]
         tparray += [tp]
         t2darray += [t2d]
-    
 
     return e,ep,e2d,np.mean(tarray),np.mean(tparray),np.mean(t2darray)
 
@@ -48,18 +50,22 @@ def test_gradN(numthreads):
     """input: number of threads used in test_grad_omp
     call test_grad1 with a range of grid sizes and
     assess speedup
+    The speeds for the two approaches are different because in grad we loop over
+    rows/columns - depending on whether we compute df/dx1 or df/dx2 - calling 
+    DGSTV many times but in grad2d we call DGSTV once and use its optimized code 
+    to deal with the looping to solve the nrhs systems of equations in one go.
     """
-
+        
     n1values = np.array([50, 100, 200, 400, 800, 1600, 3200])
     n2values = n1values
     nn = np.size(n1values)
     speedup = np.empty((nn,nn))
     speedup2d = np.empty((nn,nn))
-
+    
     #loop through 50<n1,n2<1600 storing speedup
     for i in enumerate(n1values):
         for j in enumerate(n2values):
-            print "running with n1,n2=",i[1],j[1]              
+            print "running with n1,n2=",i[1],j[1]          
             f2d.n1=i[1]
             f2d.n2=j[1]
     
@@ -67,22 +73,23 @@ def test_gradN(numthreads):
             speedup[i[0],j[0]] = t/tp #compute and store speedup
             speedup2d[i[0],j[0]] = t/t2d
             
-    #display results
+    #display results - same result from hw4 part 1
     plt.figure()
     plt.plot(n1values,speedup[:,::2])
     plt.legend(('n2=50','200','800','3200'),loc='best')
     plt.xlabel('n1')
-    plt.ylabel('speedup')
-    plt.title('Yadu Bhageria, test_gradN')
+    plt.ylabel('speedup, t/tp')
+    plt.title('Yadu Bhageria, test_gradN, Speedup between grad and grad_omp')
     plt.axis('tight')
     plt.savefig("p1_fig1.png")
     
+    #new speedup graph
     plt.figure()
     plt.plot(n1values,speedup2d[:,::2])
     plt.legend(('n2=50','200','800','3200'),loc='best')
     plt.xlabel('n1')
-    plt.ylabel('speedup2d')
-    plt.title('Yadu Bhageria, test_gradN')
+    plt.ylabel('speedup2d, t/t2d')
+    plt.title('Yadu Bhageria, test_gradN, Speedup between grad and grad2d')
     plt.axis('tight')
     plt.savefig("p1_fig2.png")   
     
