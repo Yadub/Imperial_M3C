@@ -34,7 +34,7 @@ Each folder contains some *.mod, *.o files that have no been listed.
 * fdmodule2d.f90: final version for marking. Added grad2d and test_grad2d subroutines 
 * fdmodule2d_dev.f90: copy of fdmodule2d from hw4soln that I am making working changes to
 * p1_3: final version for marking. completed the script and functions
-* p1_3.so: shared ojbect file created for python using f2py --f90flags='-fopenmp' -lgomp -c fdmodule_dev.f90 fdmodule2d_dev.f90 -m p1_3 -llapack
+* p1_3.so: shared ojbect file created for python using "f2py --f90flags='-fopenmp' -lgomp -c fdmodule.f90 fdmodule2d.f90 -m p1_3 -llapack"
 * p1_dev.py: copy of p1_3.py that I have made working changes to
 * p1_fig1.png: plot produced by p1_dev.py for speedup (serial vs OMP parallel code)
 * p1_fig2.png: plot produced by p1_dev.py for speedup2d (serial vs 2D-serial code)
@@ -49,13 +49,13 @@ Each folder contains some *.mod, *.o files that have no been listed.
 * fdmodule2d.f90: from solution form hw4. We use the grad_omp function along with fdmodule.f90 for image processing
 * p2.png: image created by threshold function in p2_dev.py of the thresholded matrix
 * p2.py: final version for marking. made changes so it outputs thresholded matrix, dfmax and possibly produces an image
-* p2.so: shared object file created for python using f2py  --f90flags='-fopenmp' -lgomp -c fdmodule.f90 fdmodule2d.f90 -m p2 -llapack
+* p2.so: shared object file created for python using "f2py  --f90flags='-fopenmp' -lgomp -c fdmodule.f90 fdmodule2d.f90 -m p2 -llapack"
 * p2_dev.py: copy of p2_template.py that I am making working changes to
 * p2_template.py: unchanged
 
 ### part3/ ###
 
-* adv.so: shared object file created for python
+* adv.so: shared object file created for python with first "gfortran -c fdmoduleB.f90 ode.f90 advmodule.f90" and then "f2py -llapack -c fdmoduleB.f90 ode.f90 advmodule.f90 -m adv --f90flags='-fopenmp' -lgomp"
 * adv_mpi.exe: execulable produced from ode_pi_dev.f90
 * advection_mpi.f90: final version for marking. developed euler_mpi to solve a 1D advection with a parallel distributed memory code
 * advmodule.f90: unchanged
@@ -75,7 +75,7 @@ Each folder contains some *.mod, *.o files that have no been listed.
 
 ### part4/ ###
 
-* adv2d.so: shared object file created for python
+* adv2d.so: shared object file created for python created with first "gfortran -c advmodule2d.f90" and then "f2py -llapack -c advmodule2d.f90 fdmoduleB.f90 fdmodule2dp.f90 ode2d.f90 -m adv2d --f90flags='-fopenmp' -lgomp"
 * advmodule2d.f90: unchanged
 * fdmodule2dp: copied from solutions for hw4 part 1. Editted to call fd2 instead of cfd4 and removed variables df_amp, df_max
 * fdmoduleB.f90: unchanged
