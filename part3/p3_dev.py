@@ -1,4 +1,8 @@
-"""Project part 3, solve the 1d advection equation in fortran"""
+"""
+Yadu Bhageria
+CID:00733164
+
+Project part 3, solve the 1d advection equation in fortran"""
 import numpy as np
 import matplotlib.pyplot as plt
 import adv
@@ -7,7 +11,7 @@ import adv
 #The above step should generate three .mod files
 #f2py -llapack -c fdmoduleB.f90 ode.f90 advmodule.f90 -m adv --f90flags='-fopenmp' -lgomp
 
-def advection1f(nt,tf,n,dx,c=1.0,S=0.0,display=False,numthreads=4):
+def advection1f(nt,tf,n,dx,c=1.0,S=0.0,display=False,numthreads=1):
     """solve advection equation, df/dt + c df/dx = S
     for x=0,dx,...,(n-1)*dx, and returns f(x,tf),fp(x,tf),
     and f4(x,tf) which are solutions obtained using the fortran
@@ -16,7 +20,7 @@ def advection1f(nt,tf,n,dx,c=1.0,S=0.0,display=False,numthreads=4):
     -    nt time steps are taken from 0 to tf
     -    The solutions are plotted if display is true
     """
-    #construct grid and initial condition, set time span for odeint
+    #construct grid and initial condition
     x = np.arange(0.0,n*dx,dx)
     f0 = np.sin(2.0*np.pi*x/(n*dx))
     
@@ -42,7 +46,7 @@ def advection1f(nt,tf,n,dx,c=1.0,S=0.0,display=False,numthreads=4):
         plt.title('Yadu Bhageria, advection1f \n advection eqn. solution for n,dx,c,S=%d,%2.3f,%2.1f,%2.1f' %(n,dx,c,S))
         plt.grid()
         plt.axis('tight')
-        plt.legend(('f0','f','fp','f4'),loc='best') 
+        plt.legend(('Initial Condition','f-euler','f-euler_omp','f_rk4'),loc='best')
             
     return f,fp, f4
     
@@ -68,8 +72,7 @@ def test_advection1f(n):
     ep = np.mean(np.abs(fa-fp))
     e4 = np.mean(np.abs(fa-f4))
     
-    return e,ep,e4  
-    #return e,ep,e4 #errors from euler, euler_omp, rk4
+    return e,ep,e4 #errors from euler, euler_omp, rk4
         
 """This section is included for assessment and must be included as is in the final
 file that you submit,"""
