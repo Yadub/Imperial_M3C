@@ -1,5 +1,3 @@
-!Yadu Bhageria
-!CID: 00733164
 !Project, part 1.1
 !Module containing routines for differentiating an array of size N with
 !2nd order and 4th order-compact finite differences
@@ -83,6 +81,7 @@ subroutine cfd4(f,df)
 
 end subroutine cfd4
 !------------------
+!-----------------
 
 subroutine cfd4_2d(f,df)
     !4th order centered finite difference scheme with
@@ -93,41 +92,13 @@ subroutine cfd4_2d(f,df)
     real(kind=8) :: dxfac,c1,c2,c3,c4
     real(kind=8), dimension(:,:), intent(in) :: f
     real(kind=8), dimension(size(f,1),size(f,2)), intent(out) :: df
-    !variables for DGTSV
+!variables for DGTSV
     real(kind=8), dimension(size(f,1)) :: D
     real(kind=8), dimension(size(f,1)-1) :: DL,DU
-    integer :: INFO,NRHS
+    integer :: INFO
 
-    !needed constants
-    dxfac = 1.d0/dx
-    c1 = 3.d0
-    c2 = 2.5d0
-    c3 = 2.d0
-    c4 = 0.5d0
 
-    !RHS
-    df(2:N-1,:) = c1*(f(3:N,:)-f(1:N-2,:))
-    df(1,:) = (-c2*f(1,:) + c3*f(2,:) + c4*f(3,:))
-    df(N,:) = (c2*f(N,:) - c3*f(N-1,:) - c4*f(N-2,:))
 
-    df = dxfac*df
-
-    !Diagonals for DGTSV
-    D =  4.d0
-    DL = 1.d0
-    DU = 1.d0
-
-    !b.c.'s
-    D(1) = 1.d0
-    DU(1) = 2.d0
-    D(N) = 1.d0
-    DL(N-1) = 2.d0
-
-    !the number of right hand sides, i.e. the number of columns of the matrix df
-    NRHS = size(f,2)
-
-    !solution is returned in df
-    call DGTSV(N,NRHS,DL,D,DU,df,N,INFO)
 
     if (info .ne. 0) then
         print *, 'error in cfd4_2d, DGTSV gives INFO=',INFO
@@ -136,6 +107,7 @@ subroutine cfd4_2d(f,df)
 
 end subroutine cfd4_2d
 !------------------
+
 
 subroutine test_fd(alpha,error)
     !test finite difference schemes with Gaussian function
