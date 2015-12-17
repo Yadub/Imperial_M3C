@@ -41,8 +41,8 @@ subroutine rk4(t0,y0,dt,nt,y,time)
 
            y = y + (f1 + 2*f2  + 2*f3 + f4)*fac
 
-           t = t + dt*dble(k)
-
+           t = t + dt*dble(k) !Why?
+           !t = t + dt !surely? Although obviously it makes no difference to the solution as we still loop the same number of times with the same dt
         end do
         call system_clock(t2,clock_rate)
         time = dble(t2-t1)/dble(clock_rate)
@@ -66,7 +66,6 @@ subroutine euler(t0,y0,dt,nt,y)
         t = t + dt
 
     end do
-
 
 end subroutine euler
 !-----------------
@@ -92,17 +91,17 @@ function RHS(t,f)
 
         n = n2
         dx = dx2
-        !compute df/dx2, df_amp,df_max
+        !compute df/dx2
         !$OMP parallel do
         do i1=1,n1
             call fd2(f(:,i1),df2(:,i1))
+            RHS(:,i1) = (S_adv - c1_adv*df1(:,i1) - c2_adv*df2(:,i1))
         end do
         !$OMP end parallel do
     else
         call grad(f,df1,df2)
+        RHS = (S_adv - c1_adv*df1 - c2_adv*df2)
     end if
-    
-    RHS = S_adv - c1_adv*df1 - c2_adv*df2
 
 end function RHS
 
