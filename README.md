@@ -13,7 +13,9 @@ This README details all files in the project repo.
 ## Files and Brief Descriptions ##
 
 Files that have been provided for the project but have not been editted in any way whatsoever have also been listed here. They state unchanged next to them.
+
 Files that have been provided for the project but needed to be editted have originals copied with a "_template" suffix. They also state unchanged next to them
+
 Each folder contains some *.mod, *.o files that have no been listed.
 
 * contributors.txt: contains my name, CID, and a statement about this is project being my own unaided work.
